@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Valentine's Day Nahida | Special</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #ff4d6d;
+            --secondary-color: #ffb8c4;
+            --glass-bg: rgba(255, 255, 255, 0.2);
+            --text-color: #ffffff;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #0f0c29; /* Deep premium background */
+            background: linear-gradient(to bottom, #24243e, #302b63, #0f0c29);
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative; /* For background animations */
+        }
+
+        /* Background Bubbles/Stars - for extra premium feel */
+        .bg-element {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: moveBgElement linear infinite;
+        }
+
+        @keyframes moveBgElement {
+            0% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-120vh) translateX(50vw); opacity: 0; }
+        }
+
+
+        /* Glassmorphism Card */
+        .card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+            padding: 40px 50px;
+            text-align: center;
+            box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.4);
+            z-index: 100;
+            max-width: 90%;
+            position: relative; /* For internal animations */
+            overflow: hidden; /* Keep internal elements inside card */
+        }
+
+        h1 {
+            color: var(--text-color);
+            font-size: 2.8rem;
+            margin-bottom: 5px;
+            letter-spacing: 2px;
+            text-shadow: 0 0 15px rgba(255, 77, 109, 0.7);
+            animation: fadeIn 2s ease-out;
+        }
+
+        .name {
+            color: var(--primary-color);
+            font-weight: 700;
+            font-size: 3.5rem;
+            line-height: 1;
+            text-shadow: 0 0 15px rgba(255, 77, 109, 0.9);
+            animation: scaleIn 2s ease-out;
+        }
+
+        /* Card Internal Floating Elements */
+        .card-element {
+            position: absolute;
+            font-size: 1.5rem;
+            opacity: 0;
+            animation: floatAndFade 8s infinite ease-in-out;
+            pointer-events: none;
+        }
+
+        @keyframes floatAndFade {
+            0% { transform: translateY(0px) translateX(0px); opacity: 0; }
+            20% { opacity: 0.8; }
+            50% { transform: translateY(-20px) translateX(10px); }
+            80% { opacity: 0.8; }
+            100% { transform: translateY(0px) translateX(0px); opacity: 0; }
+        }
+
+        /* Hidden Audio Player */
+        #bgMusic {
+            display: none; /* Hide the player controls */
+        }
+
+        .message {
+            color: var(--secondary-color);
+            opacity: 0.9;
+            margin-top: 25px;
+            font-size: 1.1rem;
+            animation: fadeIn 3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes scaleIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        /* Floating elements in the entire screen */
+        .floating {
+            position: absolute;
+            bottom: -100px;
+            pointer-events: none;
+            z-index: 1;
+            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+            animation: floatUp linear forwards;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) scale(0.5) rotate(0deg);
+                opacity: 0;
+            }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% {
+                transform: translateY(-110vh) scale(1.2) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <audio id="bgMusic" autoplay loop>
+        <source src="YOUR_AUDIO_FILE.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <div class="card">
+        <span class="card-element" style="top: 10%; left: 15%; animation-delay: 1s;">💖</span>
+        <span class="card-element" style="top: 25%; right: 10%; animation-delay: 2s;">✨</span>
+        <span class="card-element" style="bottom: 15%; left: 20%; animation-delay: 3s;">🌹</span>
+        <span class="card-element" style="top: 50%; left: 5%; animation-delay: 4s;">❤️</span>
+        <span class="card-element" style="bottom: 5%; right: 15%; animation-delay: 5s;">🌸</span>
+
+
+        <h1>Happy Valentine's Day</h1>
+        <div class="name">NAHIDA</div>
+        <p class="message">You fill my world with love and joy, always. ❤️</p>
+    </div>
+
+    <script>
+        const symbols = ['🌹', '🌸', '✨', '❤️', '💝', '🌷', '💖']; // More symbols for overall background
+        
+        function createFloatingElement() {
+            const el = document.createElement('div');
+            el.className = 'floating';
+            el.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+            
+            const startX = Math.random() * 100;
+            const duration = Math.random() * 5 + 7; // 7s to 12s
+            const size = Math.random() * 20 + 20; // 20px to 40px
+
+            el.style.left = startX + 'vw';
+            el.style.fontSize = size + 'px';
+            el.style.animationDuration = duration + 's';
+            
+            document.body.appendChild(el);
+
+            // Clean up
+            setTimeout(() => {
+                el.remove();
+            }, duration * 1000);
+        }
+
+        // Generate elements periodically
+        setInterval(createFloatingElement, 300);
+
+        // Background elements (subtle bubbles/stars)
+        const bgSymbols = ['✨', '💫', '🌟', '🔮'];
+        function createBgElement() {
+            const el = document.createElement('div');
+            el.className = 'bg-element';
+            el.innerText = bgSymbols[Math.floor(Math.random() * bgSymbols.length)];
+            
+            const size = Math.random() * 15 + 10; // 10px to 25px
+            const duration = Math.random() * 10 + 20; // 20s to 30s
+            const startLeft = Math.random() * 100;
+
+            el.style.width = size + 'px';
+            el.style.height = size + 'px';
+            el.style.left = startLeft + 'vw';
+            el.style.animationDuration = duration + 's';
+            el.style.animationDelay = '-' + (Math.random() * duration) + 's'; // Stagger start
+            
+            document.body.appendChild(el);
+
+            setTimeout(() => {
+                el.remove();
+            }, duration * 1000);
+        }
+        setInterval(createBgElement, 800);
+
+
+        // Attempt to play audio
+        const audio = document.getElementById('bgMusic');
+        audio.volume = 0.6; // Adjust volume as needed
+
+        // Try playing after a small delay (might still be blocked by browser)
+        setTimeout(() => {
+            audio.play().catch(error => {
+                console.log("Autoplay blocked:", error);
+                // Fallback: Instruct user to click if autoplay fails
+                const messageElement = document.querySelector('.message');
+                if (messageElement) {
+                    messageElement.innerHTML += '<br><small>(Click anywhere to start music)</small>';
+                    window.addEventListener('click', () => {
+                        audio.play();
+                    }, { once: true });
+                }
+            });
+        }, 1000); // 1 second delay
+    </script>
+</body>
+</html>
