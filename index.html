@@ -9,7 +9,7 @@
         :root {
             --primary-color: #ff4d6d;
             --secondary-color: #ffb8c4;
-            --glass-bg: rgba(255, 255, 255, 0.2);
+            --glass-bg: rgba(255, 255, 255, 0.15);
             --text-color: #ffffff;
         }
 
@@ -19,93 +19,98 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            background: #0f0c29; /* Deep premium background */
+            background: #0f0c29;
             background: linear-gradient(to bottom, #24243e, #302b63, #0f0c29);
             font-family: 'Poppins', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            position: relative; /* For background animations */
+            position: relative;
         }
 
-        /* Background Bubbles/Stars - for extra premium feel */
+        /* Background Stars/Bubbles */
         .bg-element {
             position: absolute;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
+            color: rgba(255, 255, 255, 0.2);
+            pointer-events: none;
+            z-index: 0;
             animation: moveBgElement linear infinite;
         }
 
         @keyframes moveBgElement {
-            0% { transform: translateY(0) translateX(0); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-120vh) translateX(50vw); opacity: 0; }
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
         }
 
-
-        /* Glassmorphism Card */
+        /* Responsive Glassmorphism Card */
         .card {
             background: var(--glass-bg);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 25px;
-            padding: 40px 50px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 30px 20px;
             text-align: center;
-            box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.4);
+            box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.5);
             z-index: 100;
-            max-width: 90%;
-            position: relative; /* For internal animations */
-            overflow: hidden; /* Keep internal elements inside card */
+            width: 85%;
+            max-width: 400px; /* PC তে বেশি বড় হবে না */
+            position: relative;
+            overflow: hidden;
         }
 
         h1 {
             color: var(--text-color);
-            font-size: 2.8rem;
-            margin-bottom: 5px;
-            letter-spacing: 2px;
-            text-shadow: 0 0 15px rgba(255, 77, 109, 0.7);
+            font-size: 1.5rem; /* Mobile friendly size */
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(255, 77, 109, 0.5);
             animation: fadeIn 2s ease-out;
         }
 
         .name {
             color: var(--primary-color);
             font-weight: 700;
-            font-size: 3.5rem;
-            line-height: 1;
-            text-shadow: 0 0 15px rgba(255, 77, 109, 0.9);
-            animation: scaleIn 2s ease-out;
-        }
-
-        /* Card Internal Floating Elements */
-        .card-element {
-            position: absolute;
-            font-size: 1.5rem;
-            opacity: 0;
-            animation: floatAndFade 8s infinite ease-in-out;
-            pointer-events: none;
-        }
-
-        @keyframes floatAndFade {
-            0% { transform: translateY(0px) translateX(0px); opacity: 0; }
-            20% { opacity: 0.8; }
-            50% { transform: translateY(-20px) translateX(10px); }
-            80% { opacity: 0.8; }
-            100% { transform: translateY(0px) translateX(0px); opacity: 0; }
-        }
-
-        /* Hidden Audio Player */
-        #bgMusic {
-            display: none; /* Hide the player controls */
+            font-size: 2.5rem; /* Mobile friendly size */
+            line-height: 1.2;
+            text-shadow: 0 0 15px rgba(255, 77, 109, 0.8);
+            animation: scaleIn 1.5s ease-out;
         }
 
         .message {
             color: var(--secondary-color);
             opacity: 0.9;
-            margin-top: 25px;
-            font-size: 1.1rem;
+            margin-top: 20px;
+            font-size: 0.95rem;
+            line-height: 1.5;
             animation: fadeIn 3s ease-out;
+        }
+
+        small {
+            display: block;
+            margin-top: 15px;
+            font-size: 0.7rem;
+            color: #ddd;
+            opacity: 0.7;
+        }
+
+        /* Floating Elements */
+        .floating {
+            position: absolute;
+            bottom: -50px;
+            pointer-events: none;
+            z-index: 1;
+            filter: drop-shadow(0 0 5px rgba(255, 77, 109, 0.5));
+            animation: floatUp linear forwards;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) scale(0.5) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-110vh) scale(1.2) rotate(360deg); opacity: 0; }
         }
 
         @keyframes fadeIn {
@@ -118,53 +123,32 @@
             to { transform: scale(1); opacity: 1; }
         }
 
-        /* Floating elements in the entire screen */
-        .floating {
-            position: absolute;
-            bottom: -100px;
-            pointer-events: none;
-            z-index: 1;
-            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
-            animation: floatUp linear forwards;
+        /* Tablet & Desktop Adjustments */
+        @media (min-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            .name { font-size: 3.5rem; }
+            .card { padding: 50px; width: auto; }
+            .message { font-size: 1.1rem; }
         }
 
-        @keyframes floatUp {
-            0% {
-                transform: translateY(0) scale(0.5) rotate(0deg);
-                opacity: 0;
-            }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% {
-                transform: translateY(-110vh) scale(1.2) rotate(360deg);
-                opacity: 0;
-            }
-        }
-
+        #bgMusic { display: none; }
     </style>
 </head>
 <body>
 
-    <audio id="bgMusic" autoplay loop>
-        <source src="YOUR_AUDIO_FILE.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
+    <audio id="bgMusic" loop>
+        <source src="./yevhenastafiev-romantics-love-valentines-day-464184.mp3" type="audio/mpeg">
     </audio>
 
     <div class="card">
-        <span class="card-element" style="top: 10%; left: 15%; animation-delay: 1s;">💖</span>
-        <span class="card-element" style="top: 25%; right: 10%; animation-delay: 2s;">✨</span>
-        <span class="card-element" style="bottom: 15%; left: 20%; animation-delay: 3s;">🌹</span>
-        <span class="card-element" style="top: 50%; left: 5%; animation-delay: 4s;">❤️</span>
-        <span class="card-element" style="bottom: 5%; right: 15%; animation-delay: 5s;">🌸</span>
-
-
         <h1>Happy Valentine's Day</h1>
         <div class="name">NAHIDA</div>
-        <p class="message">You fill my world with love and joy, always. ❤️</p>
+        <p class="message" id="msgText">You fill my world with love and joy, always. ❤️<br>
+        <small>(Touch anywhere to play music 🎵)</small></p>
     </div>
 
     <script>
-        const symbols = ['🌹', '🌸', '✨', '❤️', '💝', '🌷', '💖']; // More symbols for overall background
+        const symbols = ['🌹', '🌸', '✨', '❤️', '💝', '🌷', '💖'];
         
         function createFloatingElement() {
             const el = document.createElement('div');
@@ -172,68 +156,47 @@
             el.innerText = symbols[Math.floor(Math.random() * symbols.length)];
             
             const startX = Math.random() * 100;
-            const duration = Math.random() * 5 + 7; // 7s to 12s
-            const size = Math.random() * 20 + 20; // 20px to 40px
+            const duration = Math.random() * 4 + 5; 
+            const size = Math.random() * 15 + 15;
 
             el.style.left = startX + 'vw';
             el.style.fontSize = size + 'px';
             el.style.animationDuration = duration + 's';
             
             document.body.appendChild(el);
-
-            // Clean up
-            setTimeout(() => {
-                el.remove();
-            }, duration * 1000);
+            setTimeout(() => el.remove(), duration * 1000);
         }
 
-        // Generate elements periodically
-        setInterval(createFloatingElement, 300);
+        setInterval(createFloatingElement, 400);
 
-        // Background elements (subtle bubbles/stars)
-        const bgSymbols = ['✨', '💫', '🌟', '🔮'];
+        // Subtle Background Sparks
+        const bgSymbols = ['✨', '•', '◦'];
         function createBgElement() {
             const el = document.createElement('div');
             el.className = 'bg-element';
             el.innerText = bgSymbols[Math.floor(Math.random() * bgSymbols.length)];
-            
-            const size = Math.random() * 15 + 10; // 10px to 25px
-            const duration = Math.random() * 10 + 20; // 20s to 30s
-            const startLeft = Math.random() * 100;
-
-            el.style.width = size + 'px';
-            el.style.height = size + 'px';
-            el.style.left = startLeft + 'vw';
+            const size = Math.random() * 10 + 5;
+            const duration = Math.random() * 10 + 10;
+            el.style.left = Math.random() * 100 + 'vw';
+            el.style.top = '100vh';
+            el.style.fontSize = size + 'px';
             el.style.animationDuration = duration + 's';
-            el.style.animationDelay = '-' + (Math.random() * duration) + 's'; // Stagger start
-            
             document.body.appendChild(el);
-
-            setTimeout(() => {
-                el.remove();
-            }, duration * 1000);
+            setTimeout(() => el.remove(), duration * 1000);
         }
-        setInterval(createBgElement, 800);
+        setInterval(createBgElement, 1000);
 
-
-        // Attempt to play audio
+        // Music Trigger for Mobile Browsers
         const audio = document.getElementById('bgMusic');
-        audio.volume = 0.6; // Adjust volume as needed
+        audio.volume = 0.6;
 
-        // Try playing after a small delay (might still be blocked by browser)
-        setTimeout(() => {
-            audio.play().catch(error => {
-                console.log("Autoplay blocked:", error);
-                // Fallback: Instruct user to click if autoplay fails
-                const messageElement = document.querySelector('.message');
-                if (messageElement) {
-                    messageElement.innerHTML += '<br><small>(Click anywhere to start music)</small>';
-                    window.addEventListener('click', () => {
-                        audio.play();
-                    }, { once: true });
-                }
-            });
-        }, 1000); // 1 second delay
+        window.addEventListener('touchstart', () => {
+            audio.play();
+        }, { once: true });
+
+        window.addEventListener('click', () => {
+            audio.play();
+        }, { once: true });
     </script>
 </body>
 </html>
